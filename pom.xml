@@ -2,21 +2,31 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.emeni</groupId>
 	<artifactId>tutorial1</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>Tutorial 01</name>
-	<description>My first Tutorial 01.</description>
+	<description>My first Tutorial 01</description>
 
 	<properties>
 		<java.version>1.8</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<encoding>UTF-8</encoding>
+		<project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
+		<project.resources.sourceEncoding>${encoding}</project.resources.sourceEncoding>
+		<archetype.encoding>${encoding}</archetype.encoding>
 	</properties>
 	
     <distributionManagement>
+    <!-- 
        <snapshotRepository>
           <id>my-ftp-snapshots</id>
           <url>ftp://localhost/snapshots/</url>
+       </snapshotRepository>
+       -->
+       <snapshotRepository>
+          <id>my-staging-snapshots</id>
+          <url>file://${project.build.directory}/staging</url>
        </snapshotRepository>
        <repository>
           <id>my-ftp-releases</id>
@@ -26,8 +36,10 @@
     
     <scm>
        <connection>scm:git:https://github.com/vemeni/myfirstrepo</connection>
-      <tag>tutorial1-0.0.1</tag>
-  </scm>
+       <developerConnection>scm:git:https://github.com/vemeni/myfirstrepo</developerConnection>
+       <url>https://github.com/vemeni/myfirstrepo</url>
+       <tag>v@{project.version}</tag>
+    </scm>
 
 	<dependencies>
 		<dependency>
@@ -56,6 +68,37 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.5.3</version>
+                <configuration>
+                   <goals>pre-integration-test</goals>
+                   <preparationGoals>package</preparationGoals>
+                   <allowTimestampedSnapshots>true</allowTimestampedSnapshots>
+                   <tagNameFormat>v@{project.version}</tagNameFormat>
+                   <remoteTagging>false</remoteTagging>
+                </configuration>
+            </plugin>
+            <plugin>
+               <artifactId>maven-assembly-plugin</artifactId>
+               <version>3.2.0</version>
+               <configuration>
+                  <archive>
+                     <manifest>
+                        <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        <mainClass>tutorial1.Demo</mainClass>
+                     </manifest>
+                  </archive>
+                  <descriptorRefs>
+                     <descriptorRef>jar-with-dependencies</descriptorRef>
+                  </descriptorRefs>
+               </configuration>
+               <executions>
+                  <execution>
+                     <phase>package</phase>
+                     <goals>
+                        <goal>single</goal>
+                     </goals>
+                  </execution>
+               </executions>
             </plugin>
 		</plugins>
 	</build>
