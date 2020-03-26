@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.emeni</groupId>
 	<artifactId>tutorial1</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>Tutorial 01</name>
 	<description>My first Tutorial 01.</description>
 
@@ -25,7 +25,7 @@
     </distributionManagement>	
     
     <scm>
-       <connection>scm:git:git://github.com/vemeni/myfirstrepo</connection>
+       <connection>scm:git:https://github.com/vemeni/myfirstrepo</connection>
       <tag>tutorial1-0.0.1</tag>
   </scm>
 
