@@ -25,12 +25,12 @@
        </snapshotRepository>
        -->
        <snapshotRepository>
-          <id>my-staging-snapshots</id>
-          <url>file://${project.build.directory}/staging</url>
+          <id>my-nexus-snapshots</id>
+          <url>http://localhost:8081/repository/sample_snapshot/</url>
        </snapshotRepository>
        <repository>
-          <id>my-ftp-releases</id>
-          <url>ftp://localhost/releases/</url>
+          <id>my-nexus-releases</id>
+          <url>http://localhost:8081/repository/sample_release/</url>
        </repository>
     </distributionManagement>	
     
